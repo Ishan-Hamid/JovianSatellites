@@ -27,5 +27,14 @@ Time_mins = pd.read_excel(filename, sheet_name='Sheet3', usecols = 'X', dtype=fl
 compile = [[JupX, JupY], [IoX, IoY], [EuroX, EuroY], [GanyX, GanyY], [CalliX, CalliY], theta, scale, flip, Time_mins]
 
 if __name__ == "__main__":
+    from data_processing.rotate_data import Rotate_Data
+    import matplotlib.pyplot as plt
+
+    X = Rotate_Data(JupX, JupY, IoX, IoY, theta, scale, flip)[0]
+    Y = Rotate_Data(JupX, JupY, IoX, IoY, theta, scale, flip)[1]
+
+    plt.scatter(X,Y)
+    plt.show()
+
     print(compile[8])
     pass

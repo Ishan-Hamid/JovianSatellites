@@ -63,7 +63,7 @@ def convert_to_physical(A, B, C, D, E, F):
     ## Takes A, B, C, D, E, F and converts them into ellipse physical params
     ## Basically my version of poltToParams
     ## Note: gives theta in radians
-    ## Used in mcmc_finding_physical_params in MCMC Fits
+    ## Used in mcmc_finding_physical_params in MCMCFits
 
     x0 = (2*C*D - B*E)/(B**2-4*A*C)
     y0 = (2*A*E - B*D)/(B**2-4*A*C)
@@ -72,15 +72,20 @@ def convert_to_physical(A, B, C, D, E, F):
     theta = np.arctan2(-B, C-A)/2
     return x0, y0, a, b, theta
 
-def model_ellipse(x, y):
+def model_ellipse_ex(x, y):
     #NOT THIS, NOT IN THE FORM WE NEED
+    #used to be called 'model_ellipse'
+
     v = ellipse_fit(x, y)
     A, B, C, D, E, F = v[0], v[1], v[2], v[3], v[4], v[5]
     return A * x ** 2 + B * x * y + C * y ** 2 + D * x + E * y + F
 
-def model(x, y, *params):
+def model_ellipse(x, y, *params):
+    # used to be called 'model'
+
     return params[0] * x ** 2 + params[1] * x * y + params[2] * y ** 2 + params[3] * x + params[4] * y + params[5]
 
 def physical_model(x, y, *params):
     x0, y0, a, b, theta = params
     return ((x-x0)*np.cos(theta) + (y-y0)*np.sin(theta))**2/a**2 + (-(x-x0)*np.sin(theta) + (y-y0)*np.cos(theta))**2/b**2 - 1
+
